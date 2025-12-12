@@ -60,11 +60,11 @@ export default function Home() {
         <div className="home-container">
             <div className="hero-section">
                  <h2 className="hero-title">
-                     <span className="text-gradient">PDF Archon by OSPranto Tech</span>
+                   PDF Archon by <span className="text-gradient">OSPranto Tech</span>
                 </h2>
-                <h1 className="hero-title">
-                    All your <span className="text-gradient">PDF Tools</span> in one place.
-                </h1>
+                <p className="hero-title">
+                    All your PDF Tools in one place.
+                </p>
                 <p className="hero-subtitle">
                     Secure, private, and fast. All processing happens right in your browser.
                 </p>
