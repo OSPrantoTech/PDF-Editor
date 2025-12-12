@@ -59,6 +59,9 @@ export default function Home() {
     return (
         <div className="home-container">
             <div className="hero-section">
+                 <h2 className="hero-title">
+                     <span className="text-gradient">PDF Archon by OSPranto Tech</span>
+                </h2>
                 <h1 className="hero-title">
                     All your <span className="text-gradient">PDF Tools</span> in one place.
                 </h1>
