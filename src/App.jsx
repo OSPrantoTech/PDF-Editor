@@ -36,3 +36,34 @@ function App() {
 }
 
 export default App;
+
+// src/App.js বা যেখানে আপনার <Routes> আছে
+
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout/Layout'; // আপনার Layout.jsx এর সঠিক পথ
+import Home from './pages/Home'; // একটি উদাহরণ হিসেবে
+// ... অন্যান্য কম্পোনেন্ট
+
+// --- নতুন আমদানি ---
+import ContactUs from './pages/ContactUs'; 
+// --------------------
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        
+        {/* --- Contact Us Route যোগ করুন --- */}
+        <Route path="contact" element={<ContactUs />} /> 
+        {/* ---------------------------------- */}
+        
+        {/* অন্যান্য রুট (যেমন merge, split, rotate, ইত্যাদি) */}
+        <Route path="merge" element={<div>Merge PDF Page</div>} />
+        {/* ... অন্যান্য রুট যোগ করুন */}
+        
+      </Route>
+    </Routes>
+  );
+}
+// export default App;
