@@ -10,13 +10,17 @@ import { 
   Home,
   Menu,
   X,
-  Facebook, // New icons for contact
+  Facebook, 
   Mail,
   Github,
-  Send
-} from 'lucide-react'; // Added Facebook, Mail, Github, Send icons
+  Send,
+  PhoneCall // Icon for Contact Us
+} from 'lucide-react'; 
 import clsx from 'clsx';
-import './Layout.css'; // We'll create this for layout-specific styles
+import './Layout.css'; 
+
+// Import contact data from the new constants file
+import { CONTACT_INFO, FOOTER_INFO } from './constants/contactData'; // Adjust path if necessary
 
 const SIDEBAR_ITEMS = [
   { icon: Home, label: 'Dashboard', path: '/' },
@@ -28,12 +32,10 @@ const SIDEBAR_ITEMS = [
   { icon: PenTool, label: 'Edit PDF', path: '/edit' },
 ];
 
-// Your contact information
-const CONTACT_INFO = [
-    { icon: Facebook, text: 'Adnan Hasan Pranto', link: 'https://www.facebook.com/AdnanHasanPranto' }, // Example link, replace with actual
-    { icon: Mail, text: 'OSPranto.Official@gmail.com', link: 'mailto:OSPranto.Official@gmail.com' },
-    { icon: Github, text: 'OSPranto Tech', link: 'https://github.com/OSPranto' }, // Example link, replace with actual
-    { icon: Send, text: '@MrMysteryMoon (Telegram)', link: 'https://t.me/MrMysteryMoon' }, // Example link, replace with actual
+// New array for items that appear at the bottom of the main list
+const BOTTOM_SIDEBAR_ITEMS = [
+    // --- New Contact Us Item Added Here ---
+    { icon: PhoneCall, label: 'Contact Us', path: '/contact' },
 ];
 
 
@@ -45,7 +47,7 @@ export default function Layout() {
   const closeSidebar = () => setIsSidebarOpen(false);
 
   // Get current page title
-  const currentItem = SIDEBAR_ITEMS.find(item => item.path === location.pathname);
+  const currentItem = [...SIDEBAR_ITEMS, ...BOTTOM_SIDEBAR_ITEMS].find(item => item.path === location.pathname);
   const pageTitle = currentItem ? currentItem.label : 'OSPranto Tech';
 
   return (
@@ -65,7 +67,7 @@ export default function Layout() {
         <div className="sidebar-header">
           <div className="logo-container">
             <h1 className="logo-text">OSPranto Tech</h1>
-            <p className="tagline">Technology with a Sense of Ease</p> {/* Tagline added */}
+            <p className="tagline">Technology with a Sense of Ease</p> 
           </div>
         </div>
 
@@ -81,6 +83,22 @@ export default function Layout() {
               <span>{item.label}</span>
             </NavLink>
           ))}
+          
+          {/* BOTTOM_SIDEBAR_ITEMS added here (e.g., Contact Us) */}
+          <div className="bottom-nav-section">
+              {BOTTOM_SIDEBAR_ITEMS.map((item) => (
+                  <NavLink
+                      key={item.path}
+                      to={item.path}
+                      onClick={closeSidebar}
+                      className={({ isActive }) => clsx("nav-item bottom-nav-item", { active: isActive })}
+                  >
+                      <item.icon size={20} />
+                      <span>{item.label}</span>
+                  </NavLink>
+              ))}
+          </div>
+
         </nav>
 
         <div className="sidebar-footer">
@@ -94,8 +112,8 @@ export default function Layout() {
                 ))}
             </div>
           <div className="copyright-info">
-            <p>©OSPranto Tech 2025</p>
-            <p className="version">v1.0.0</p>
+            <p>{FOOTER_INFO.copyright}</p>
+            <p className="version">{FOOTER_INFO.version}</p>
           </div>
         </div>
       </aside>
