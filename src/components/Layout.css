@@ -338,4 +338,125 @@
     color: #94a3b8;
     font-size: 0.85rem;
 }
+    /* --- ContactUs.jsx এর জন্য অতিরিক্ত স্টাইল (আপনার HTML থেকে কপি করা হয়েছে) --- */
+
+/* গ্রিড কন্টেইনার */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 0 20px;
+    width: 100%; 
+}
+@media (min-width: 768px) {
+    .grid-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* কার্ড স্টাইল */
+.card {
+    /* Assuming a base glass-panel or card style exists, this overrides for the contact page */
+    background-color: var(--color-bg-secondary, rgba(30, 41, 59, 0.7)); 
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--color-card-border, rgba(255, 255, 255, 0.1));
+    box-shadow: 0 4px 12px var(--color-shadow, rgba(0, 0, 0, 0.3));
+    height: fit-content; 
+}
+
+.card-heading {
+    /* color:var(--color-highlight-secondary) from original HTML */
+    color: var(--color-highlight-secondary, #fde047); 
+    border-bottom: 2px solid var(--color-card-border, rgba(255, 255, 255, 0.1));
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+
+/* ফর্ম এবং ইনপুট স্টাইল */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--color-text-primary, #f1f5f9);
+}
+.form-group input, .form-group textarea {
+    background-color: var(--color-bg-primary, #0f172a); 
+    border: 1px solid var(--color-card-border, rgba(255, 255, 255, 0.2)); 
+    color: var(--color-text-primary, #f1f5f9);
+    padding: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-highlight-primary, #00e073);
+    box-shadow: 0 0 8px rgba(0, 224, 115, 0.5);
+}
+
+.form-submit-btn {
+    width: 100%; 
+    margin-top: 15px; 
+    padding: 15px; 
+    font-size: 1.1em;
+}
+
+
+/* কন্টাক্ট ইনফো লিংক ফিক্সড */
+.info-link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: var(--color-bg-primary, #0f172a); 
+    border: 1px solid var(--color-card-border, rgba(255, 255, 255, 0.1)); 
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 8px var(--color-shadow, rgba(0, 0, 0, 0.2));
+}
+.info-link:hover {
+    background-color: var(--color-card-bg, rgba(255, 255, 255, 0.05)); 
+    transform: translateY(-2px);
+}
+.info-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 15px;
+    font-size: 1.5em;
+    color: var(--color-bg-primary, #0f172a); 
+}
+
+/* Background colors for icons (Remix Icon colors mapped to Lucide Icons) */
+.bg-red { background-color: #ff5252; } 
+.bg-blue-sky { background-color: #00bcd4; } 
+.bg-blue-dark { background-color: #1877f2; } 
+.bg-green { background-color: #00e073; } 
+
+.info-content h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--color-text-primary, #ffffff);
+    margin: 0;
+}
+.info-content p {
+    font-size: 0.9em;
+    color: var(--color-text-secondary, #94a3b8);
+    margin: 0;
+}
 }
