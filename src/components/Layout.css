@@ -13,7 +13,7 @@
     width: 260px;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Crucial: Ensures children stack and can use flex: 1 */
     padding: 1.5rem;
     z-index: 50;
     transition: transform 0.3s ease;
@@ -26,66 +26,58 @@
 
 .logo-container {
     display: flex;
-    /* Changed from align-items: center; to flex-start for multi-line logo+tagline */
     align-items: flex-start; 
     gap: 0.75rem;
-    flex-direction: column; /* Added to stack icon and text/tagline vertically */
+    flex-direction: column; 
 }
 
 .logo-icon {
     font-size: 1.75rem;
-    /* To visually balance the new stacked layout, you might want the icon and text next to each other, so we'll adjust the icon's container */
-    margin-bottom: 5px; /* Added spacing */
+    margin-bottom: 5px; 
 }
 
-/* --- START: OSPranto Tech Branding Update --- */
+/* --- OSPranto Tech Branding Update --- */
 
 /* Sidebar Logo Title */
 .logo-text {
-    font-size: 1.8rem; /* Updated: Larger size */
+    font-size: 1.8rem;
     font-weight: 700;
-    color: #ffffff; /* Updated: Solid white for better glow effect base */
+    color: #ffffff;
     letter-spacing: -0.5px;
-
-    /* Removed gradient background clip for solid white base and glow */
     -webkit-background-clip: unset; 
     -webkit-text-fill-color: unset;
-
-    /* Added Glow Effect */
-    text-shadow: 0 0 8px rgba(33, 150, 243, 0.8), /* Blue glow effect */
+    text-shadow: 0 0 8px rgba(33, 150, 243, 0.8), 
                  0 0 15px rgba(33, 150, 243, 0.5);
     transition: all 0.3s ease;
 }
 
-/* Optional: Hover effect for a subtle animation */
 .logo-container:hover .logo-text {
-    text-shadow: 0 0 10px rgba(76, 175, 80, 1), /* Green glow on hover */
+    text-shadow: 0 0 10px rgba(76, 175, 80, 1), 
                  0 0 20px rgba(76, 175, 80, 0.7);
 }
 
 /* Tagline */
 .tagline {
-    font-size: 0.75rem; /* Small, readable size for the tagline */
-    color: #bdbdbd; /* Lighter color for secondary text */
-    margin-top: -5px; /* Pull it closer to the logo text */
+    font-size: 0.75rem;
+    color: #bdbdbd;
+    margin-top: -5px;
     font-style: italic;
     opacity: 0.8;
 }
 
-/* Fix for mobile logo which was previously just logo-text */
 .logo-text-mobile {
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-/* --- END: OSPranto Tech Branding Update --- */
+/* --- End Branding Update --- */
 
-
+/* Sidebar Nav */
 .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    flex: 1;
+    flex: 1; /* CRUCIAL FIX: Makes nav take all remaining space */
 }
 
 .nav-item {
@@ -108,22 +100,33 @@
 
 .nav-item.active {
     background: rgba(99, 102, 241, 0.15);
-    /* Indigo tint */
     color: var(--color-primary);
     border-color: rgba(99, 102, 241, 0.3);
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
 }
 
-/* --- START: Sidebar Footer Contact Section Update --- */
+/* --- Bottom Nav Section FIX --- */
+.bottom-nav-section {
+    margin-top: auto; /* CRUCIAL FIX: Pushes the Contact Us link to the bottom */
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bottom-nav-item {
+    margin-bottom: 0; 
+}
+/* --- End Bottom Nav Section FIX --- */
+
+
+/* --- Sidebar Footer Contact Section Update --- */
 
 .sidebar-footer {
-    /* Existing Styles */
-    margin-top: auto;
-    padding: 15px; /* Increased padding */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Updated border color for glass look */
+    margin-top: auto; 
+    padding: 15px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
     color: #e0e0e0;
     font-size: 0.75rem;
-    text-align: left; /* Changed alignment for contact list */
+    text-align: left; 
 }
 
 .contact-heading {
@@ -131,7 +134,7 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: #ffffff;
-    text-align: center; /* Center the heading */
+    text-align: center; 
 }
 
 .contact-list {
@@ -147,7 +150,7 @@
     align-items: center;
     gap: 8px;
     font-size: 0.8rem;
-    color: #b3e5fc; /* Light blue link color */
+    color: #b3e5fc; 
     text-decoration: none;
     padding: 4px 0;
     transition: color 0.2s ease;
@@ -158,7 +161,6 @@
     text-decoration: underline;
 }
 
-/* General copyright and version info */
 .copyright-info {
     font-size: 0.7rem;
     color: #9e9e9e;
@@ -172,7 +174,7 @@
     margin: 0;
 }
 
-/* --- END: Sidebar Footer Contact Section Update --- */
+/* --- End Sidebar Footer Contact Section Update --- */
 
 
 /* Main Content */
@@ -242,13 +244,11 @@
     .sidebar {
         position: fixed;
         top: 60px;
-        /* Below mobile header */
         left: 0;
         bottom: 0;
         width: 80%;
         transform: translateX(-100%);
         background: var(--color-bg-primary);
-        /* Solid bg for mobile drawer */
     }
 
     .sidebar.open {
