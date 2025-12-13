@@ -26,22 +26,60 @@
 
 .logo-container {
     display: flex;
-    align-items: center;
+    /* Changed from align-items: center; to flex-start for multi-line logo+tagline */
+    align-items: flex-start; 
     gap: 0.75rem;
+    flex-direction: column; /* Added to stack icon and text/tagline vertically */
 }
 
 .logo-icon {
     font-size: 1.75rem;
+    /* To visually balance the new stacked layout, you might want the icon and text next to each other, so we'll adjust the icon's container */
+    margin-bottom: 5px; /* Added spacing */
 }
 
+/* --- START: OSPranto Tech Branding Update --- */
+
+/* Sidebar Logo Title */
 .logo-text {
+    font-size: 1.8rem; /* Updated: Larger size */
+    font-weight: 700;
+    color: #ffffff; /* Updated: Solid white for better glow effect base */
+    letter-spacing: -0.5px;
+
+    /* Removed gradient background clip for solid white base and glow */
+    -webkit-background-clip: unset; 
+    -webkit-text-fill-color: unset;
+
+    /* Added Glow Effect */
+    text-shadow: 0 0 8px rgba(33, 150, 243, 0.8), /* Blue glow effect */
+                 0 0 15px rgba(33, 150, 243, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Optional: Hover effect for a subtle animation */
+.logo-container:hover .logo-text {
+    text-shadow: 0 0 10px rgba(76, 175, 80, 1), /* Green glow on hover */
+                 0 0 20px rgba(76, 175, 80, 0.7);
+}
+
+/* Tagline */
+.tagline {
+    font-size: 0.75rem; /* Small, readable size for the tagline */
+    color: #bdbdbd; /* Lighter color for secondary text */
+    margin-top: -5px; /* Pull it closer to the logo text */
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Fix for mobile logo which was previously just logo-text */
+.logo-text-mobile {
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: -0.5px;
-    background: linear-gradient(to right, #fff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
+
+/* --- END: OSPranto Tech Branding Update --- */
+
 
 .sidebar-nav {
     display: flex;
@@ -76,14 +114,66 @@
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
 }
 
+/* --- START: Sidebar Footer Contact Section Update --- */
+
 .sidebar-footer {
+    /* Existing Styles */
     margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
+    padding: 15px; /* Increased padding */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Updated border color for glass look */
+    color: #e0e0e0;
     font-size: 0.75rem;
+    text-align: left; /* Changed alignment for contact list */
+}
+
+.contact-heading {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ffffff;
+    text-align: center; /* Center the heading */
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #b3e5fc; /* Light blue link color */
+    text-decoration: none;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+}
+
+.contact-item:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* General copyright and version info */
+.copyright-info {
+    font-size: 0.7rem;
+    color: #9e9e9e;
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.05);
     text-align: center;
 }
+
+.copyright-info p {
+    margin: 0;
+}
+
+/* --- END: Sidebar Footer Contact Section Update --- */
+
 
 /* Main Content */
 .main-content {
