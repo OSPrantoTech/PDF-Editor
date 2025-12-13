@@ -53,7 +53,6 @@ export default function Layout() {
       {/* Mobile Header */ }
       <header className="mobile-header">
         <div className="logo-mobile">
-          <span className="logo-icon">👑</span>
           <span className="logo-text-mobile">OSPranto Tech</span>
         </div>
         <button className="menu-btn" onClick={toggleSidebar}>
@@ -65,7 +64,6 @@ export default function Layout() {
       <aside className={clsx("sidebar glass-panel", { "open": isSidebarOpen })}>
         <div className="sidebar-header">
           <div className="logo-container">
-            <span className="logo-icon">👑</span>
             <h1 className="logo-text">OSPranto Tech</h1>
             <p className="tagline">Technology with a Sense of Ease</p> {/* Tagline added */}
           </div>
