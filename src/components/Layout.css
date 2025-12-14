@@ -6,7 +6,8 @@
     --color-text-primary: #ffffff;
     --color-text-secondary: #94a3b8;
     --color-primary: #6366f1;
-    --color-primary-dark: #4f46e5; /* যোগ করা হলো: hover এর জন্য dark variant */
+    /* ✅ যোগ করা হলো: hover এর জন্য dark variant */
+    --color-primary-dark: #4f46e5; 
     --color-border: rgba(255, 255, 255, 0.1);
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
@@ -14,7 +15,8 @@
     --color-shadow: rgba(0, 0, 0, 0.2);
     --color-highlight-secondary: #fde047;
     --color-highlight-primary: #00e073;
-    --color-card-bg: rgba(255, 255, 255, 0.05); /* info-link hover-এর জন্য যোগ করা হলো */
+    /* ✅ যোগ করা হলো: info-link hover-এর জন্য */
+    --color-card-bg: rgba(255, 255, 255, 0.05); 
 }
 
 .app-container {
