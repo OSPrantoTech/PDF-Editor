@@ -1,4 +1,15 @@
 /* Layout specific styles */
+/* --- Global Variables (if applicable, though not shown in the provided code) --- */
+:root {
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #94a3b8;
+    --color-primary: #6366f1;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+}
 
 .app-container {
     display: flex;
@@ -18,10 +29,11 @@
     z-index: 50;
     transition: transform 0.3s ease;
     background-color: var(--color-bg-primary, #0f172a); 
+    overflow-y: auto; /* স্ক্রলিং নিশ্চিত করা হলো */
 }
 
 .sidebar-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; 
     padding-left: 0.5rem;
 }
 
@@ -33,10 +45,8 @@
 }
 
 /* --- OSPranto Tech Branding Update --- */
-
-/* Sidebar Logo Title */
 .logo-text {
-    font-size: 1.8rem;
+    font-size: 1.7rem; 
     font-weight: 700;
     color: #ffffff;
     letter-spacing: -0.5px;
@@ -50,9 +60,8 @@
                  0 0 20px rgba(76, 175, 80, 0.7);
 }
 
-/* Tagline */
 .tagline {
-    font-size: 0.75rem;
+    font-size: 0.7rem; 
     color: #bdbdbd;
     margin-top: -5px;
     font-style: italic;
@@ -64,24 +73,24 @@
     font-weight: 700;
 }
 
-/* --- End Branding Update --- */
-
-/* Sidebar Nav */
+/* --- Sidebar Nav --- */
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem; 
     flex: 1; /* Ensures nav takes all remaining vertical space */
+    margin-bottom: 10px; 
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.875rem 1rem;
+    padding: 0.75rem 1rem; /* PC মোডে সাইজ কমানো হলো */
     border-radius: var(--radius-md, 0.5rem); 
     color: var(--color-text-secondary, #94a3b8);
     font-weight: 500;
+    font-size: 0.95rem; /* PC মোডে ফন্ট সাইজ কমানো হলো */
     transition: all 0.2s ease;
     border: 1px solid transparent;
     cursor: pointer;
@@ -90,7 +99,7 @@
 .nav-item:hover {
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text-primary, #ffffff);
-    transform: translateX(4px);
+    transform: translateX(2px);
 }
 
 .nav-item.active {
@@ -100,25 +109,26 @@
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
 }
 
-/* --- Sidebar Footer (Only Copyright Info Remains) --- */
+/* --- Sidebar Footer (Only Copyright Info) --- */
 
 .sidebar-footer {
     margin-top: auto; 
-    padding: 15px; 
+    padding: 15px 0 0 0; /* Padding ফিক্স করা হলো (টপ বর্ডার এবং নিচে) */
     border-top: 1px solid var(--color-border, rgba(255, 255, 255, 0.1)); 
     color: #e0e0e0;
     font-size: 0.75rem;
     text-align: left; 
 }
 
-/* contact-heading, contact-list, contact-item এর স্টাইলগুলো রিমুভ করা হয়েছে */
+/* contact-heading, contact-list, contact-item এর স্টাইলগুলো স্থায়ীভাবে রিমুভ করা হয়েছে */
 
 .copyright-info {
     font-size: 0.7rem;
     color: #9e9e9e;
     margin-top: 10px;
     padding-top: 5px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    /* এখানে আর কোনো ড্যাশড বর্ডার নেই, কারণ এটি এখন footer-এর প্রধান অংশ */
+    /* border-top: 1px dashed rgba(255, 255, 255, 0.05); */
     text-align: center;
 }
 
@@ -138,15 +148,14 @@
     overflow: hidden;
 }
 
-/* .page-header এবং h2 এর স্টাইল সম্পূর্ণরূপে রিমুভ করা হয়েছে */
+/* page-header স্টাইলগুলো রিমুভড */
 
 .content-scrollable {
     flex: 1;
     overflow-y: auto;
     padding: 2rem;
     scroll-behavior: smooth;
-    /* PC মোডে হেডার না থাকার কারণে টপ প্যাডিং সেট করা হলো */
-    padding-top: 1.5rem; 
+    padding-top: 2rem; /* PC মোডে কন্টেন্ট প্যাডিং */
 }
 
 /* Mobile Responsive */
@@ -198,7 +207,7 @@
     }
 
     .main-content {
-        margin-top: 60px; /* মোবাইল হেডারের জন্য জায়গা তৈরি করা হলো */
+        margin-top: 60px;
         min-height: calc(100vh - 60px); 
     }
 
@@ -214,13 +223,13 @@
     }
     
     .content-scrollable {
-        /* হেডার না থাকার কারণে mobile-এ প্যাডিং নিশ্চিত করা হলো */
         padding-top: 1.5rem;
     }
 } 
 
-/* --- Contact Us Page Styles (ContactUs.jsx-এর জন্য) --- */
-/* এই স্টাইলগুলো contact page-এর গ্রিড, কার্ড, ফর্ম এবং ইনফো লিংক স্টাইলের জন্য */
+/* --- Contact Us Page Styles (ContactUs.jsx-এর জন্য) --- 
+   এই সেকশনটি অক্ষুণ্ণ রাখা হলো, কারণ এটি মূল পেজের কন্টেন্ট
+*/
 
 .page-main-title {
     font-size: 2.5rem;
@@ -295,7 +304,6 @@
 
 /* --- ContactUs.jsx এর জন্য অতিরিক্ত স্টাইল (ফর্ম এবং কার্ড) --- */
 
-/* গ্রিড কন্টেইনার */
 .grid-layout {
     display: grid;
     grid-template-columns: 1fr;
@@ -311,7 +319,6 @@
     }
 }
 
-/* কার্ড স্টাইল */
 .card {
     background-color: var(--color-bg-secondary, rgba(30, 41, 59, 0.7)); 
     padding: 25px;
