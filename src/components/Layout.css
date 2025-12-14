@@ -7,7 +7,7 @@
     width: 100vw;
     overflow: hidden;
     /* Ensuring a fallback color if the CSS variable is missing */
-    /* Fallback color-bg-primary ভ্যারিয়েবল থেকে নেওয়া হয়েছে */
+    /* Fallback color-bg-primary ভ্যারিয়েবল থেকে নেওয়া হয়েছে */
     background: radial-gradient(circle at top right, #1e1b4b, var(--color-bg-primary, #0f172a));
 }
 
@@ -44,9 +44,6 @@
     font-weight: 700;
     color: #ffffff;
     letter-spacing: -0.5px;
-    /* এই প্রপার্টিগুলো সাধারণত টেক্সট গ্রেডিয়েন্টের জন্য ব্যবহৃত হয়, এখানে প্রয়োজন নেই */
-    /* -webkit-background-clip: unset;  
-    -webkit-text-fill-color: unset; */
     /* Glow Effect with robust values */
     text-shadow: 0 0 8px rgba(33, 150, 243, 0.8), 
                  0 0 15px rgba(33, 150, 243, 0.5);
@@ -110,17 +107,7 @@
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
 }
 
-/* Style for the Contact Us link to push it to the bottom */
-/* এই ক্লাসটির প্রয়োজন নেই, কারণ আপনি `sidebar-footer` ব্যবহার করছেন `margin-top: auto` সহ। 
-   যদি `bottom-nav-item` ব্যবহার করতে হয়, তাহলে এটি নেভিগেশন অংশের শেষ আইটেম হিসেবে ব্যবহার করুন। */
-/* .bottom-nav-item {
-    margin-top: auto; 
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-} */
-
-
-/* --- Sidebar Footer Contact Section Update --- */
+/* --- Sidebar Footer (Only Copyright Info Remains) --- */
 
 .sidebar-footer {
     /* এটিই ফুটারকে নিচে ঠেলে দেবে। `sidebar-nav` এ `flex: 1` আছে। */
@@ -133,40 +120,7 @@
     text-align: left; 
 }
 
-.contact-heading {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #ffffff;
-    text-align: center; 
-}
-
-.contact-list {
-    /* লিস্টের ডিফল্ট স্টাইলগুলো সরিয়ে দেওয়া ভালো (যদি ul/ol ব্যবহার হয়) */
-    list-style: none; /* যদি ul/ol ব্যবহার হয় */
-    padding: 0; /* যদি ul/ol ব্যবহার হয় */
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 10px;
-    padding: 0 5px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: #b3e5fc; 
-    text-decoration: none;
-    padding: 4px 0;
-    transition: color 0.2s ease;
-}
-
-.contact-item:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
+/* --- রিমুভ করা হয়েছে: .contact-heading, .contact-list, .contact-item --- */
 
 .copyright-info {
     font-size: 0.7rem;
@@ -181,7 +135,7 @@
     margin: 0;
 }
 
-/* --- End Sidebar Footer Contact Section Update --- */
+/* --- End Sidebar Footer --- */
 
 
 /* Main Content */
@@ -198,16 +152,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* শুধুমাত্র bottom বর্ডার ব্যবহার করার জন্য অন্যান্য বর্ডার প্রপার্টিগুলো সরানো হলো */
-    /* border-left: none;
-    border-right: none;
-    border-top: none; */
     border-bottom: 1px solid var(--color-border, rgba(255, 255, 255, 0.1)); /* বর্ডার যোগ করা হলো */
     border-radius: 0;
     z-index: 10;
-    /* Optional: Fixed header, background color and shadow if needed */
-    /* background-color: var(--color-bg-primary, #0f172a); 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
 }
 
 .page-header h2 {
@@ -264,7 +211,6 @@
         transform: translateX(-100%);
         background: var(--color-bg-primary, #0f172a); /* Fallback যোগ করা হলো */
         padding-bottom: 20px; /* নিচের দিকে কিছুটা প্যাডিং যোগ করা হলো */
-        /* height: calc(100vh - 60px); - `bottom: 0` দিয়ে এটি করার প্রয়োজন নেই */
         overflow-y: auto; /* কন্টেন্ট বেশি হলে স্ক্রল করার জন্য */
     }
 
@@ -274,8 +220,6 @@
 
     .main-content {
         margin-top: 60px;
-        /* `height: 100%` কাজ করবে না, তাই `min-height` অথবা `height: calc(...)` ব্যবহার করতে হবে। 
-           overflow: hidden; আছে, তাই height ঠিক থাকতে হবে। */
         min-height: calc(100vh - 60px); 
     }
 
@@ -289,12 +233,6 @@
         z-index: 40;
         backdrop-filter: blur(2px);
     }
-
-    /* এখানে `/* Layout.css এর একদম শেষে এই স্টাইলগুলো যোগ করুন */` এর পরের অংশ থেকে
-    `@media (max-width: 768px) { ... }` এর বন্ধনী ভুল ছিল।
-    আপনি এর ভেতরে অন্যান্য স্টাইলগুলি যুক্ত করেছিলেন, যা শুধুমাত্র ৭৬৮পিক্সেলের নিচের স্ক্রিনের জন্য কাজ করবে।
-    আমি বন্ধনীটি (closing brace) ঠিক করে দিয়েছি এবং স্টাইলগুলো বাইরে নিয়ে এসেছি।
-    */
 } /* @media (max-width: 768px) বন্ধনীটি এখানে বন্ধ হবে */
 
 /* --- Contact Us Page Styles (ContactUs.jsx-এর জন্য) --- */
@@ -502,5 +440,3 @@
     color: var(--color-text-secondary, #94a3b8);
     margin: 0;
 }
-/* এই closing brace টি আপনার মূল কোডে অতিরিক্ত ছিল এবং ভুল জায়গায় ছিল। */
-/* } */
