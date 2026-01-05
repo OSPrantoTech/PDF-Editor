@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Minimize2, Download, Settings, FileText, Loader2 } from 'lucide-react';
+import { Download, FileText, Loader2 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
 import { pdfjs } from 'react-pdf';
 import Dropzone from '../components/Dropzone';
 import './Compress.css';
 
+// PDF.js Worker সেটআপ (এটি যোগ করা জরুরি)
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
 export default function Compress() {
     const [file, setFile] = useState(null);
-    const [quality, setQuality] = useState(0.6); // 0.1 to 1.0
+    const [quality, setQuality] = useState(0.5); // Default 50%
     const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
     const [downloadUrl, setDownloadUrl] = useState(null);
@@ -26,35 +29,31 @@ export default function Compress() {
         setProgress(0);
 
         try {
-            // 1. Load the PDF using PDF.js to render pages
             const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjs.getDocument(arrayBuffer).promise;
+            const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
             const numPages = pdf.numPages;
-
-            // 2. Create a new PDF with pdf-lib
             const newPdf = await PDFDocument.create();
 
-            // 3. Loop through pages
             for (let i = 1; i <= numPages; i++) {
                 const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 }); // Scale 1.5 for decent balance of quality/size
+                
+                // সাইজ কমাতে স্কেল ১ এ রাখা হয়েছে
+                const viewport = page.getViewport({ scale: 1.0 }); 
 
-                // Create canvas
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
-                // Render to canvas
                 await page.render({ canvasContext: context, viewport: viewport }).promise;
 
-                // Compress to JPEG Blob
+                // JPEG ফরম্যাটে রূপান্তর
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
                 const imageBytes = await blob.arrayBuffer();
 
-                // Embed in new PDF
                 const embeddedImage = await newPdf.embedJpg(imageBytes);
                 const newPage = newPdf.addPage([viewport.width, viewport.height]);
+                
                 newPage.drawImage(embeddedImage, {
                     x: 0,
                     y: 0,
@@ -67,13 +66,15 @@ export default function Compress() {
 
             const savedBytes = await newPdf.save();
             const savedBlob = new Blob([savedBytes], { type: 'application/pdf' });
-
+            
+            // নতুন সাইজ ক্যালকুলেশন
+            const newSizeMB = (savedBytes.byteLength / 1024 / 1024).toFixed(2);
+            setCompressedSize(newSizeMB);
             setDownloadUrl(URL.createObjectURL(savedBlob));
-            setCompressedSize((savedBytes.byteLength / 1024 / 1024).toFixed(2));
 
         } catch (error) {
             console.error(error);
-            alert("Compression failed: " + error.message);
+            alert("কম্প্রেশন সফল হয়নি: " + error.message);
         } finally {
             setIsProcessing(false);
         }
@@ -113,35 +114,37 @@ export default function Compress() {
                             style={{ width: '100%', marginBottom: '0.5rem' }}
                         />
                         <div style={{ textAlign: 'center', margin: '0.5rem 0' }}>
-                            <span className="fade-in-text" style={{
-                                color: '#9ba3b1',
-                                fontSize: '14px',
-                                transition: 'all 0.3s ease'
-                            }}>
+                            <span className="fade-in-text" style={{ color: '#9ba3b1', fontSize: '14px' }}>
                                 Estimated Size: {((file.size / 1024 / 1024) * quality).toFixed(2)} MB
                             </span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#64748b' }}>
-                            <span>Low Size (Low Quality)</span>
-                            <span>High Quality (Big Size)</span>
                         </div>
                     </div>
 
                     <div className="action-area" style={{ marginTop: '2rem' }}>
                         {downloadUrl ? (
                             <div className="success-state">
-                                <div className="stat-box" style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-                                    <p style={{ color: '#10b981', fontWeight: 'bold' }}>Success!</p>
+                                <div className="stat-box" style={{ 
+                                    background: compressedSize > (file.size / 1024 / 1024) ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)', 
+                                    padding: '1rem', 
+                                    borderRadius: '0.5rem', 
+                                    marginBottom: '1rem', 
+                                    border: compressedSize > (file.size / 1024 / 1024) ? '1px solid #ef4444' : '1px solid #10b981' 
+                                }}>
+                                    <p style={{ color: compressedSize > (file.size / 1024 / 1024) ? '#ef4444' : '#10b981', fontWeight: 'bold' }}>
+                                        {compressedSize > (file.size / 1024 / 1024) ? 'Notice: Size Increased' : 'Success!'}
+                                    </p>
                                     <p>New Size: {compressedSize} MB</p>
                                     <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>
-                                        Reduced by {((1 - (compressedSize / (file.size / 1024 / 1024))) * 100).toFixed(0)}%
+                                        {compressedSize > (file.size / 1024 / 1024) 
+                                            ? "Try lowering the quality level." 
+                                            : `Reduced by ${(((file.size / 1024 / 1024) - compressedSize) / (file.size / 1024 / 1024) * 100).toFixed(0)}%`}
                                     </p>
                                 </div>
-                                <a href={downloadUrl} download={`compressed-${file.name}`} className="btn-primary" style={{ display: 'block', textAlign: 'center' }}>
+                                <a href={downloadUrl} download={`compressed-${file.name}`} className="btn-primary" style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>
                                     <Download size={18} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
                                     Download Compressed PDF
                                 </a>
-                                <button onClick={() => setFile(null)} className="btn-secondary" style={{ marginTop: '1rem', width: '100%' }}>Compress Another</button>
+                                <button onClick={() => {setFile(null); setDownloadUrl(null);}} className="btn-secondary" style={{ marginTop: '1rem', width: '100%' }}>Compress Another</button>
                             </div>
                         ) : (
                             <button
@@ -152,7 +155,7 @@ export default function Compress() {
                             >
                                 {isProcessing ? (
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                                        <Loader2 className="animate-spin" /> Processing Page {progress}%
+                                        <Loader2 className="animate-spin" /> Processing {progress}%
                                     </span>
                                 ) : 'Compress PDF'}
                             </button>
